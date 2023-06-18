@@ -26,7 +26,7 @@ normal # [..., 3], assume normalized, in [-1, 1]
 reflective # [..., 3], assume normalized, in [-1, 1]
 roughness # [..., 1], in [0, 1]
 
-light = envlight.EnvLight('envlight/assets/aerodynamics_workshop_2k.hdr', device='cuda')
+light = envlight.EnvLight('assets/aerodynamics_workshop_2k.hdr', device='cuda')
 
 diffuse = light(normal) # [..., 3]
 specular = light(reflective, roughness) # [..., 3]
