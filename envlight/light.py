@@ -73,7 +73,8 @@ class EnvLight(torch.nn.Module):
         prefix = l.shape[:-1]
         if len(prefix) != 3: # reshape to [B, H, W, -1]
             l = l.reshape(1, 1, -1, l.shape[-1])
-            roughness = roughness.reshape(1, 1, -1, 1)
+            if roughness is not None:
+                roughness = roughness.reshape(1, 1, -1, 1)
 
         if roughness is None:
             # diffuse light
