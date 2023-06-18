@@ -39,5 +39,8 @@ An example renderer:
 python renderer.py
 ```
 
+https://github.com/ashawkey/envlight/assets/25863658/70974921-d7bc-4189-980f-11663e2e127b
+
+
 ### Acknowledgement
 * Credits to Nvidia's [nvdiffrec](https://github.com/NVlabs/nvdiffrec).
