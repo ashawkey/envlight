@@ -1,3 +1,4 @@
 The aerodynamics_workshop_2k.hdr HDR probe is from https://polyhaven.com/a/aerodynamics_workshop
+The mud_road_puresky.hdr HDR probe is from https://polyhaven.com/a/mud_road_puresky
 CC0 License.
 
