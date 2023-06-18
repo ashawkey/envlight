@@ -26,7 +26,7 @@ normal # [..., 3], assume normalized, in [-1, 1]
 reflective # [..., 3], assume normalized, in [-1, 1]
 roughness # [..., 1], in [0, 1]
 
-light = envlight.EnvLight('envlight/assets/aerodynamics_workshop_2k.hdr', device='cuda')
+light = envlight.EnvLight('assets/aerodynamics_workshop_2k.hdr', device='cuda')
 
 diffuse = light(normal) # [..., 3]
 specular = light(reflective, roughness) # [..., 3]
@@ -38,6 +38,9 @@ An example renderer:
 # requries extra dependencies: pip install trimesh dearpygui
 python renderer.py
 ```
+
+https://github.com/ashawkey/envlight/assets/25863658/70974921-d7bc-4189-980f-11663e2e127b
+
 
 ### Acknowledgement
 * Credits to Nvidia's [nvdiffrec](https://github.com/NVlabs/nvdiffrec).
