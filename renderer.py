@@ -137,8 +137,8 @@ class GUI:
                 depth = rast[0, :, :, [2]]  # [H, W, 1]
                 buffer = depth.detach().cpu().numpy().repeat(3, -1) # [H, W, 3]
             else:
-                # fake albedo, pure white
-                albedo = torch.ones(1, self.H, self.W, 3, dtype=torch.float32, device='cuda')
+                # fake albedo (pure white)
+                albedo = torch.tensor([1,1,1], dtype=torch.float32, device='cuda') * torch.ones(1, self.H, self.W, 3, dtype=torch.float32, device='cuda')
                 albedo = torch.where(rast[..., 3:] > 0, albedo, torch.tensor(0).to(albedo.device)) # remove background
                 if self.mode == 'albedo':
                     buffer = albedo[0].detach().cpu().numpy()
@@ -149,7 +149,8 @@ class GUI:
                         buffer = (n[0].detach().cpu().numpy() + 1) / 2
                     else:
                         pos, _ = dr.interpolate(self.v.unsqueeze(0), rast, self.f)
-                        v = safe_normalize(mv[:3, 3] - pos)
+                        campos = torch.linalg.inv(mv)[:3, 3]
+                        v = safe_normalize(campos - pos)
                         NdotV = (n * v).sum(-1, keepdim=True)
                         l = NdotV * n * 2 - v
                         roughness = self.roughness * torch.ones(1, self.H, self.W, 1, dtype=torch.float32, device='cuda')
@@ -160,6 +161,7 @@ class GUI:
                             fg_uv = torch.cat([NdotV, roughness], -1).clamp(0, 1)
                             fg = dr.texture(self.FG_LUT, fg_uv.reshape(1, -1, 1, 2).contiguous(), filter_mode="linear", boundary_mode="clamp").reshape(1, self.H, self.W, 2)
                             specular = self.light(l, roughness) * ((0.04 * (1 - self.metallic) + albedo * self.metallic) * fg[..., 0:1] + fg[..., 1:2])
+                            specular = torch.where(rast[..., 3:] > 0, specular, torch.tensor(0).to(specular.device)) # remove background
                             if self.mode == 'specular':
                                 buffer = specular[0].detach().cpu().numpy()
                             else: # 'full'
