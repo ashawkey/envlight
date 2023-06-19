@@ -1,5 +1,4 @@
 import os
-from unicodedata import name
 import trimesh
 import argparse
 import numpy as np

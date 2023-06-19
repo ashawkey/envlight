@@ -12,6 +12,7 @@ setup(
     install_requires=[
         'torch',
         'numpy',
+        'scipy',
         'ninja',
         'imageio',
         'nvdiffrast',
