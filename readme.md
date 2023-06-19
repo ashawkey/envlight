@@ -39,7 +39,7 @@ An example renderer:
 python renderer.py
 ```
 
-https://github.com/ashawkey/envlight/assets/25863658/70974921-d7bc-4189-980f-11663e2e127b
+https://github.com/ashawkey/envlight/assets/25863658/505d57e6-6e8a-4492-ae02-586e28e038ad
 
 
 ### Acknowledgement
