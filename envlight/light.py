@@ -6,11 +6,12 @@ from .utils import *
 
 class EnvLight(torch.nn.Module):
 
-    def __init__(self, path=None, device=None, min_res=16, max_res=512, min_roughness=0.08, max_roughness=0.5, trainable=False):
+    def __init__(self, path=None, device=None, scale=1.0, min_res=16, max_res=512, min_roughness=0.08, max_roughness=0.5, trainable=False):
         super().__init__()
         self.device = device if device is not None else 'cuda' # only supports cuda
-        self.min_res = min_res
-        self.max_res = max_res
+        self.scale = scale # scale of the hdr values
+        self.min_res = min_res # minimum resolution for mip-map
+        self.max_res = max_res # maximum resolution for mip-map
         self.min_roughness = min_roughness
         self.max_roughness = max_roughness
         self.trainable = trainable
@@ -34,7 +35,7 @@ class EnvLight(torch.nn.Module):
         if image.dtype != np.float32:
             image = image.astype(np.float32) / 255
 
-        image = torch.from_numpy(image).to(self.device)
+        image = torch.from_numpy(image).to(self.device) * self.scale
         cubemap = latlong_to_cubemap(image, [self.max_res, self.max_res], self.device)
 
         self.base.data = cubemap

@@ -31,6 +31,9 @@ light = envlight.EnvLight('assets/aerodynamics_workshop_2k.hdr', device='cuda')
 diffuse = light(normal) # [..., 3]
 specular = light(reflective, roughness) # [..., 3]
 
+# to load another hdr file
+light.load('assets/mud_road_puresky_1k.hdr')
+light.build_mips()
 ```
 
 An example renderer:
