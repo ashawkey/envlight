@@ -11,11 +11,9 @@ setup(
     packages=['envlight'],
     include_package_data=True,
     install_requires=[
-        'torch',
         'numpy',
         'scipy',
         'ninja',
         'imageio',
-        'nvdiffrast',
     ],
 )
