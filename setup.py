@@ -14,6 +14,6 @@ setup(
         'numpy',
         'scipy',
         'ninja',
-        'imageio',
+        'imageio>=2.28.0',
     ],
 )
